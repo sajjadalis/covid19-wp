@@ -1,25 +1,40 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
+import Shortcode from'../views/Shortcode.vue'
+import Table from'../views/Table.vue'
+import Chart from'../views/Chart.vue'
+import Lost from '@/views/404'
 
 Vue.use(VueRouter)
 
 const routes = [
+  // {
+  //   path: '/',
+  //   name: 'home',
+  //   component: Home
+  // },
   {
     path: '/',
-    name: 'Home',
-    component: Home
+    name: 'shortcode-generator',
+    component: Shortcode
   },
   {
-    path: '/about',
-    name: 'About',
-    // route level code-splitting
-    // this generates a separate chunk (about.[hash].js) for this route
-    // which is lazy-loaded when the route is visited.
-    component: function () {
-      return import(/* webpackChunkName: "about" */ '../views/About.vue')
-    }
+    path: '/table',
+    name: 'table',
+    component: Table
+  },
+  {
+    path: '/chart',
+    name: 'chart',
+    component: Chart
+  },
+  {
+    path: '/*',
+    name: '404',
+    component: Lost
   }
+
 ]
 
 const router = new VueRouter({
