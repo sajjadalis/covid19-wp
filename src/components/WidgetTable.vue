@@ -19,6 +19,7 @@
 </template>
 <script>
 import axios from 'axios'
+import moment from 'moment'
 
 export default {
   data() {
@@ -38,14 +39,14 @@ export default {
                 paginationSizeSelector:[10, 15, 25, 50,],
                 columnMinWidth: '100',
                 initialSort : [
-                    { column: "cases", dir: "desc" }
+                    { column: "confirmed", dir: "desc" }
                 ],
                 columns: [
                     {title:"Date", field:"date"},
-                    {title:"Cases", field:"cases", sorter:"number", width: "100"},
-                    {title:"Deaths", field:"deaths", sorter:"number", width: "100"},
-                    {title:"Total Recovered", field:"total_recovered", sorter:"number", width: "160"},
-                    {title:"Active Cases", field:"active_cases", sorter:"number", width: "130"},
+                    {title:"Confirmed", field:"confirmed", sorter:"number"},
+                    {title:"Deaths", field:"deaths", sorter:"number"},
+                    {title:"Recovered", field:"recovered", sorter:"number"},
+                    {title:"Active Cases", field:"active", sorter:"number"},
                 ]
             }
         }
@@ -60,22 +61,22 @@ export default {
             let host = 'coronavirus-monitor.p.rapidapi.com';
             let key = 'cfd416e672msh1d31722e56ea3c4p1e4ffejsn11819d2d30f2';
 
-            let cases_by_country = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php';
+            let cases_by_country = 'https://pomber.github.io/covid19/timeseries.json';
 
-            axios.get(cases_by_country, 
-            { headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }  } )
+            axios.get(cases_by_country)
             .then(res => {
-                this.countries.data = res.data.countries_stat;
-                this.countries.taken_at = res.data.statistic_taken_at;
-                //console.log(this.countries);
-
-                let data = this.countries.data
-                //define some sample data
-                data.forEach( country => {
-
-                    this.tabledata.push(country);
-
-                })         
+                
+                this.tabledata = res.data["Pakistan"].map(({ date, confirmed, recovered, deaths }) => {
+                
+                        return { 
+                            date:  date,
+                            confirmed: confirmed,
+                            recovered: recovered,
+                            deaths: deaths,
+                            active: confirmed - recovered - deaths
+                        }
+                    //console.log(`${date} active cases: ${confirmed - recovered - deaths}`);
+                });       
 
             })
             .catch(function(e) {
@@ -90,7 +91,7 @@ export default {
     computed: {
         filteredCountries() {
             return this.tabledata.filter((country) => {
-                return country.country_name.toLowerCase().match(this.search.toLowerCase())
+                return country.date.toLowerCase().match(this.search.toLowerCase())
             })
         }
     }
