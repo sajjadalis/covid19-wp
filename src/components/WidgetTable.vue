@@ -41,15 +41,11 @@ export default {
                     { column: "cases", dir: "desc" }
                 ],
                 columns: [
-                    {title:"Country", field:"country_name"},
+                    {title:"Date", field:"date"},
                     {title:"Cases", field:"cases", sorter:"number", width: "100"},
-                    {title:"New Cases", field:"new_cases", sorter:"number", width: "120"},
                     {title:"Deaths", field:"deaths", sorter:"number", width: "100"},
-                    {title:"New Deaths", field:"new_deaths", sorter:"number", width: "130"},
                     {title:"Total Recovered", field:"total_recovered", sorter:"number", width: "160"},
                     {title:"Active Cases", field:"active_cases", sorter:"number", width: "130"},
-                    {title:"Critical", field:"serious_critical", sorter:"number", width: "100"},
-                    {title:"Total Cases / 1M", field:"total_cases_per_1m_population", sorter:"number", width: "160"}
                 ]
             }
         }
