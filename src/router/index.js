@@ -5,6 +5,7 @@ import Shortcode from'../views/Shortcode.vue'
 import Table from'../views/Table.vue'
 import Chart from'../views/Chart.vue'
 import Lost from '@/views/404'
+import New from '@/views/New'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const routes = [
     path: '/chart',
     name: 'chart',
     component: Chart
+  },
+  {
+    path: '/new',
+    name: 'new',
+    component: New
   },
   {
     path: '/*',
