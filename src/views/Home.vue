@@ -311,6 +311,10 @@
           title: "CORONA (COVID-19) Stats WordPress Plugin",
           subtitle: "Generate Shortcode to Display Widgets on Your Website",
           img: '/assets/img/martin-sanchez-j2c7yf223Mk-unsplash.jpg',
+          button: {
+            url: 'https://github.com/sajjadalis/corona-covid-stats',
+            txt: 'DOWNLOAD'
+          }
         }
       }
     },
