@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="settings" uk-sticky class="uk-card uk-card-default uk-card-body uk-form-horizontal cov-options">
+        <div v-if="settings" uk-sticky class="uk-card uk-card-default uk-card-body uk-form-horizontal cov-options uk-sticky">
             <h2 class="cov-heading">Card Shortcode Settings</h2>
             <div class="uk-margin">
                 <label  class="uk-form-label" for="form-horizontal-select">Select Country</label>

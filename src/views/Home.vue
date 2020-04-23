@@ -312,7 +312,7 @@
           subtitle: "Generate Shortcode to Display Widgets on Your Website",
           img: '/assets/img/martin-sanchez-j2c7yf223Mk-unsplash.jpg',
           button: {
-            url: 'https://github.com/sajjadalis/corona-covid-stats',
+            url: 'https://github.com/sajjadalis/corona-covid-stats/archive/master.zip',
             txt: 'DOWNLOAD'
           }
         }
