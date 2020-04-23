@@ -1,7 +1,6 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Shortcode from'../views/Shortcode.vue'
 import Table from'../views/Table.vue'
 import Chart from'../views/Chart.vue'
 import Lost from '@/views/404'
@@ -16,8 +15,8 @@ const routes = [
   // },
   {
     path: '/',
-    name: 'shortcode-generator',
-    component: Shortcode
+    name: 'home',
+    component: Home
   },
   {
     path: '/table',

@@ -37,8 +37,6 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
-var host = 'coronavirus-monitor.p.rapidapi.com';
-var key = 'cfd416e672msh1d31722e56ea3c4p1e4ffejsn11819d2d30f2';
 
 export default {
     props: {
@@ -96,6 +94,9 @@ export default {
     },
     methods: {
         globalData() {
+
+            let host = process.env.VUE_APP_API_HOST;
+            let key = process.env.VUE_APP_API_KEY;
             let worldstat = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php';
 
             axios.get(worldstat, 

@@ -8,12 +8,12 @@
 					<nav class="uk-navbar uk-navbar-container uk-navbar-transparent" data-uk-navbar>
 						<div class="uk-navbar-left">
 							<div class="uk-navbar-item uk-padding-remove-horizontal">
-								<router-link :to="{ name: 'shortcode-generator' }" class="uk-logo">CORONA COVID-19</router-link>
+								<router-link :to="{ name: 'home' }" class="uk-logo">CORONA COVID-19</router-link>
 							</div>
 						</div>
 						<div class="uk-navbar-right">
 							<ul class="uk-navbar-nav uk-visible@s">
-								<li><router-link :to="{ name: 'shortcode-generator' }">Shortcode Generator</router-link></li>
+								<li><router-link :to="{ name: 'home' }">Shortcode Generator</router-link></li>
 								<li><router-link :to="{ name: 'table' }">Table</router-link></li>
 								<li><router-link :to="{ name: 'chart' }">Chart</router-link></li>
 							</ul>

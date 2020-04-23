@@ -61,8 +61,8 @@ export default {
         countriesStats() {
             this.loading = true;
             
-            let host = 'coronavirus-monitor.p.rapidapi.com';
-            let key = 'cfd416e672msh1d31722e56ea3c4p1e4ffejsn11819d2d30f2';
+            let host = process.env.VUE_APP_API_HOST;
+            let key = process.env.VUE_APP_API_KEY;
 
             let cases_by_country = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/cases_by_country.php';
 

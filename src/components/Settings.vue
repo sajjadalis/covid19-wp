@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="settings" class="uk-card uk-card-default uk-card-body uk-form-horizontal cov-options">
+        <div v-if="settings" uk-sticky class="uk-card uk-card-default uk-card-body uk-form-horizontal cov-options">
             <h2 class="cov-heading">Card Shortcode Settings</h2>
             <div class="uk-margin">
                 <label  class="uk-form-label" for="form-horizontal-select">Select Country</label>
@@ -124,8 +124,6 @@
 </template>
 <script>
 import axios from 'axios'
-var host = 'coronavirus-monitor.p.rapidapi.com';
-var key = 'cfd416e672msh1d31722e56ea3c4p1e4ffejsn11819d2d30f2';
 
 export default {
     props: ['selectedcountry', 'bgcolor', 'charttype', 'cardwidth', 'cases', 'deaths', 'recovered', 'critical', 'active', 'casesperm', 'labeltitle', 'labelglobal', 'labelcases', 'labeldeaths', 'labelrecovered', 'labelcritical', 'labelactive', 'labelcasesperm',],
@@ -137,7 +135,9 @@ export default {
         }
     },
     mounted() {
-            
+        
+        let host = process.env.VUE_APP_API_HOST;
+        let key = process.env.VUE_APP_API_KEY;
         let countriesList = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/affected.php';
 
         axios.get(countriesList, 
