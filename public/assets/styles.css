@@ -382,6 +382,17 @@ ul.chart-list li.casesper1m:before {
         float: left;
     }
 }
+
+
+@media (max-width: 540px) {
+    .cov-options.uk-sticky, .cov-options.uk-active.uk-sticky-fixed {
+        position: unset!important;
+    }
+}
+.uk-sticky-below {
+    position: sticky!important;
+}
+
 .cov-options .uk-margin {
     margin: 10px 0!important;
 }
@@ -527,10 +538,6 @@ ul.chart-list li.casesper1m:before {
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 0;
-}
-
-.uk-sticky-below {
-    position: sticky!important;
 }
 
 input.cov-input {
