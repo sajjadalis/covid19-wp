@@ -184,6 +184,10 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 .cov-card .cov-stats {
     font-size: 18px;
 }
+.cov-grid-wide {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+}
 .cov-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);

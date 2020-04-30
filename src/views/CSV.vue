@@ -42,39 +42,55 @@ export default {
                  
                 }
 
-                let date = global[global.length - 1].date;
-                console.log(date);
-                
+                let date = global[global.length - 1].date;               
                 let confirmed = global.reduce((a, {confirmed}) => a + confirmed, 0);
                 let deaths = global.reduce((a, {deaths}) => a + deaths, 0);
                 let recovered = global.reduce((a, {recovered}) => a + recovered, 0);
                 let active = confirmed - deaths - recovered;
 
+                console.log(date);
                 console.log(confirmed);
                 console.log(deaths);
                 console.log(recovered);
-                console.log(active)
+                console.log(active);
 
-                // res.data.forEach(country => {
-                //     global.push(country.length - 1);
+                let yesterday = []
+                for (let [key, value] of Object.entries(res.data)) {
+                    yesterday.push(value[value.length - 2]);
+                }
 
-                // })
+                let ydate = yesterday[yesterday.length - 1].date;
+                let yconfirmed = yesterday.reduce((a, {confirmed}) => a + confirmed, 0);
+                let ydeaths = yesterday.reduce((a, {deaths}) => a + deaths, 0);
 
-                // console.log(global);
-
-
-                //let sum = allProducts.reduce((a, {cases}) => a + watt, 0);
-
+                console.log(ydate);
+                console.log(yconfirmed);
+                console.log(ydeaths);
                 
             })
             .catch(err => {
                 console.log(err);
             })
         },
+        async countries() {
+            await axios('https://pomber.github.io/covid19/countries.json')
+            .then(res => {
+
+                let countries = [];
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    countries.push(key);
+                }
+
+                console.log(countries);
+            })
+        }
     },
     mounted() {
         //this.countryData("US");
-        this.globalData();
+        //this.globalData();
+        this.countries();
+
     }
 }
 </script>
