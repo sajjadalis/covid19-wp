@@ -89,38 +89,28 @@
                               
                             <h3>{{ labeltitle }}</h3>
                             
-                            <h5 >{{ country.country_name }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ taken_at }}</span></h5>
+                            <h5 >{{ country.name }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{country.date}}</span></h5>
                             <i class="fas fa-virus cov-icon"></i>
                             <div class="cov-grid">
                                 <div v-if="cases" class="cov-col">
                                     <i class="fas fa-head-side-cough" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labelcases }}</h4>
-                                    <div class="cov-stats">{{ country.total_cases }} <span class="cov-new">+{{ country.new_cases }} New</span></div>
+                                    <div class="cov-stats">{{ country.cases }} <span class="cov-new">+{{ country.cases_new }} New</span></div>
                                 </div>
                                 <div v-if="deaths" class="cov-col">
                                     <i class="fas fa-head-side-virus" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labeldeaths }}</h4>
-                                    <div class="cov-stats">{{ country.total_deaths }} <span class="cov-new">+{{ country.new_deaths }} New</span></div>
-                                </div>
-                                <div v-if="critical" class="cov-col">
-                                    <i class="fas fa-lungs-virus" :style="{ 'color': bgcolor }"></i>
-                                    <h4>{{ labelcritical }}</h4>
-                                    <div class="cov-stats">{{ country.serious_critical }}</div>
+                                    <div class="cov-stats">{{ country.deaths }} <span class="cov-new">+{{ country.deaths_new }} New</span></div>
                                 </div>
                                 <div v-if="recovered" class="cov-col">
                                     <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labelrecovered }}</h4>
-                                    <div class="cov-stats">{{ country.total_recovered }}</div>
+                                    <div class="cov-stats">{{ country.recovered }}</div>
                                 </div>
                                 <div v-if="active" class="cov-col">
                                     <i class="fas fa-syringe" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labelactive }}</h4>
-                                    <div class="cov-stats">{{ activeCases }}</div>
-                                </div>
-                                <div v-if="casesperm" class="cov-col">
-                                    <i class="fas fa-viruses" :style="{ 'color': bgcolor }"></i>
-                                    <h4>{{ labelcasesperm }}</h4>
-                                    <div class="cov-stats">{{ country.total_cases_per1m }}</div>
+                                    <div class="cov-stats">{{ country.active }}</div>
                                 </div>
                             </div>
                             
@@ -285,9 +275,9 @@
         global: null,
         country: {},
         taken_at: '',
-        selectedcountry: 'USA',
+        selectedcountry: 'US',
         charttype: 'bar',
-        cardwidth: '400px',
+        cardwidth: '350px',
         activeCases: null,
         chart: null,
         loading: false,
@@ -322,38 +312,37 @@
         numberWithCommas(n) {
             return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
         },
-        countryData(country) {
+        async countryData(country) {
             this.loading = true;
 
-            let host = process.env.VUE_APP_API_HOST;
-            let key = process.env.VUE_APP_API_KEY;
-            let stat_by_country = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/latest_stat_by_country.php';
-
-            axios.get(stat_by_country, { 
-                headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key },
-                params: { 'country': country,  } 
-            } )
+            await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
-                this.country = res.data.latest_stat_by_country[0];
 
-                console.log(this.country.record_date)
+                let latest = res.data[country][res.data[country].length - 1]
+                let yesterday = res.data[country][res.data[country].length - 2];
 
-                this.taken_at = moment(this.country.record_date).format('ll');;
-                let cases = parseInt(this.country.total_cases.replace(/,/g, ''), 10);
-                let recoverd = parseInt(this.country.total_recovered.replace(/,/g, ''), 10);
-                let deaths = parseInt(this.country.total_deaths.replace(/,/g, ''), 10);
-                let activeCases = cases - recoverd - deaths;
-                this.activeCases = this.numberWithCommas(activeCases);
-                let critical = parseInt(this.country.serious_critical.replace(/,/g, ''), 10);
-                let caseper1m = parseInt(this.country.total_cases_per1m.replace(/,/g, ''), 10);
+                console.log(`${country} [${latest.date}]`);                
+
+                this.country = {
+                    name: country,
+                    date: moment(latest.date).format('MMMM Do, YYYY'),
+                    cases: latest.confirmed,
+                    deaths: latest.deaths,
+                    recovered: latest.recovered,
+                    active: latest.confirmed - latest.deaths - latest.recovered,
+                    cases_new: latest.confirmed - yesterday.confirmed,
+                    deaths_new : latest.deaths - yesterday.deaths
+                }
+
+                console.log(this.country);
                 
-                let chartLabel = 'Corona Stats for ' + this.country.country_name;
+                let chartLabel = 'Corona Stats for ' + country;
                 
-                let chartBg = ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)', 'rgba(161, 196, 102, 1)', 'rgba(153, 102, 255, 1)'];
+                let chartBg = ['rgba(54, 162, 235, 1)', 'rgba(255, 99, 132, 1)', 'rgba(255, 206, 86, 1)', 'rgba(75, 192, 192, 1)'];
                 
-                let chartLabels = ['Total Cases', 'Deaths', 'Critical', 'Total Recoverd', 'Active Cases', 'Cases/1M'];
+                let chartLabels = ['Confirmed Cases', 'Deaths', 'Recoverd', 'Active Cases'];
                 
-                let data = [cases, deaths, critical, recoverd, activeCases, caseper1m];
+                let data = [this.country.cases, this.country.deaths, this.country.recoverd, this.country.active];
 
                 let chartData = {
                     labels: chartLabels,
@@ -391,7 +380,7 @@
         }
     },
     mounted() {
-        this.countryData(this.selectedcountry);
+        this.countryData("Pakistan");
     }
   }
 </script>

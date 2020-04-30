@@ -9,23 +9,28 @@
 
         <div v-else-if="global" class="cov-card" :style="{ 'width': cardwidth, 'background-color': bgcolor, 'box-shadow': '0 0 30px 0' + bgcolor + 80  }">
             <h3>{{ labeltitle }}</h3>
-            <h5>{{ labelglobal }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ taken_at }}</span></h5>
+            <h5>{{ labelglobal }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ global.date }}</span></h5>
             <i class="fas fa-virus cov-icon"></i>
             <div class="cov-grid">
                 <div v-if="cases" class="cov-col">
                     <i class="fas fa-head-side-cough" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelcases }}</h4>
-                    <div class="cov-stats">{{ global.total_cases }} <span class="cov-new">+{{ global.new_cases }} New</span></div>
+                    <div class="cov-stats">{{ global.cases }} <span class="cov-new">+{{ global.cases_new }} New</span></div>
                 </div>
                 <div v-if="deaths" class="cov-col">
                     <i class="fas fa-head-side-virus" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labeldeaths }}</h4>
-                    <div class="cov-stats">{{ global.total_deaths }} <span class="cov-new">+{{ global.new_deaths }} New</span></div>
+                    <div class="cov-stats">{{ global.deaths }} <span class="cov-new">+{{ global.deaths_new }} New</span></div>
                 </div>
                 <div v-if="recovered" class="cov-col">
                     <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelrecovered }}</h4>
-                    <div class="cov-stats">{{ global.total_recovered }}</div>
+                    <div class="cov-stats">{{ global.recovered }}</div>
+                </div>
+                <div v-if="active" class="cov-col">
+                    <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
+                    <h4>{{ labelactive }}</h4>
+                    <div class="cov-stats">{{ global.active }}</div>
                 </div>
             </div>
         </div>
@@ -93,25 +98,60 @@ export default {
         }
     },
     methods: {
-        globalData() {
 
-            let host = process.env.VUE_APP_API_HOST;
-            let key = process.env.VUE_APP_API_KEY;
-            let worldstat = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php';
+        async globalData() {  
 
-            axios.get(worldstat, 
-            { headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }  } )
+            await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
-                this.global = res.data;
-                this.taken_at = moment(this.global.statistic_taken_at).format('ll');
+
+                let global = [];
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    global.push(value[value.length - 1]);
+                 
+                }
+                
+                let date = moment( global[global.length - 1].date ).format('MMMM Do, YYYY');
+                let confirmed = global.reduce((a, {confirmed}) => a + confirmed, 0);
+                let deaths = global.reduce((a, {deaths}) => a + deaths, 0);
+                let recovered = global.reduce((a, {recovered}) => a + recovered, 0);
+                let active = confirmed - deaths - recovered;
+
+                this.global = {
+                    date: date,
+                    cases: confirmed,
+                    deaths: deaths,
+                    recovered: recovered,
+                    active: active
+                }
+
+                console.log(this.global);
+
+                // console.log(confirmed);
+                // console.log(deaths);
+                // console.log(recovered);
+                // console.log(active)
+                
             })
-            .catch(function(e) {
-                console.log(e);
+            .catch(err => {
+                console.log(err);
             })
-            .finally(() => {
-                this.loading = false;
-            });
-        }
+        },
+        // async globalData() {
+
+        //     axios.get(worldstat, 
+        //     { headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }  } )
+        //     .then(res => {
+        //         this.global = res.data;
+        //         this.taken_at = moment(this.global.statistic_taken_at).format('ll');
+        //     })
+        //     .catch(function(e) {
+        //         console.log(e);
+        //     })
+        //     .finally(() => {
+        //         this.loading = false;
+        //     });
+        // }
     },
     mounted() {
         this.globalData();
