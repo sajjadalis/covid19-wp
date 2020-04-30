@@ -43,13 +43,13 @@ export default {
                 }
 
                 let date = global[global.length - 1].date;               
-                let confirmed = global.reduce((a, {confirmed}) => a + confirmed, 0);
+                let cases = global.reduce((a, {confirmed}) => a + confirmed, 0);
                 let deaths = global.reduce((a, {deaths}) => a + deaths, 0);
                 let recovered = global.reduce((a, {recovered}) => a + recovered, 0);
-                let active = confirmed - deaths - recovered;
+                let active = cases - deaths - recovered;
 
                 console.log(date);
-                console.log(confirmed);
+                console.log(cases);
                 console.log(deaths);
                 console.log(recovered);
                 console.log(active);
@@ -66,7 +66,25 @@ export default {
                 console.log(ydate);
                 console.log(yconfirmed);
                 console.log(ydeaths);
-                
+
+                let threeDaysAgo = [];
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    threeDaysAgo.push(value[value.length - 4]);
+                }
+
+                let threeDaysAgo_cases = threeDaysAgo.reduce((a, {confirmed}) => a + confirmed, 0);
+                let threeDaysAgo_deaths = threeDaysAgo.reduce((a, {deaths}) => a + deaths, 0);
+                let threeDaysAgo_recovered = threeDaysAgo.reduce((a, {recovered}) => a + recovered, 0);
+
+                let casesSince3DaysAgo = cases - threeDaysAgo_cases;
+                let deathsSince3DaysAgo = deaths - threeDaysAgo_deaths;
+                let recoveredSince3DaysAgo = recovered - threeDaysAgo_recovered;
+
+                console.log(threeDaysAgo[threeDaysAgo.length - 1].date);
+                console.log(casesSince3DaysAgo);
+                console.log(deathsSince3DaysAgo);
+                console.log(recoveredSince3DaysAgo);
             })
             .catch(err => {
                 console.log(err);
@@ -88,8 +106,8 @@ export default {
     },
     mounted() {
         //this.countryData("US");
-        //this.globalData();
-        this.countries();
+        this.globalData();
+       //this.countries();
 
     }
 }

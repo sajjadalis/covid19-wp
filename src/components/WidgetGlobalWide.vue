@@ -14,16 +14,19 @@
                     <h3 :style="{ 'color': textcolor }">{{ labelcases }}</h3>
                     <h2 :style="{ 'color': textcolor }">{{ global.cases.toLocaleString() }}</h2>
                     <p>+{{ casesPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
+                    <p>+{{ casesPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labeldeaths }}</h3>
                     <h2 :style="{ 'color': textcolor }">{{ global.deaths.toLocaleString() }}</h2>
                     <p>+{{ deathsPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
+                    <p>+{{ deathsPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labelrecovered }}</h3>
                     <h2 :style="{ 'color': textcolor }">{{ global.recovered.toLocaleString() }}</h2>
                     <p>+{{ recoveredPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
+                    <p>+{{ recoveredPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
             </div>
         </div>
@@ -77,7 +80,10 @@ export default {
             global: null,
             casesPercentageSinceYesterday: null,
             deathsPercentageSinceYesterday: null,
-            recoveredPercentageSinceYesterday: null
+            recoveredPercentageSinceYesterday: null,
+            casesPercentageSince3DaysAgo: null,
+            deathsPercentageSince3DaysAgo: null,
+            recoveredPercentageSince3DaysAgo: null,
         }
     },
     methods: {
@@ -86,8 +92,8 @@ export default {
             await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
 
-                // Define yesterday global data in order to get new cases and deaths
-                let yesterday = []
+                // Define yesterday global data in order to get new cases, new deaths & precentage
+                let yesterday = [];
                 for (let [key, value] of Object.entries(res.data)) {
                     yesterday.push(value[value.length - 2]);
                 }
@@ -125,6 +131,27 @@ export default {
                 this.casesPercentageSinceYesterday = cases_new * 100 / cases;
                 this.deathsPercentageSinceYesterday = deaths_new * 100 / deaths;
                 this.recoveredPercentageSinceYesterday = recovered_new * 100 / recovered;
+
+                                // Define 3 days ago global data in order to get precentage
+                let threeDaysAgo = [];
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    threeDaysAgo.push(value[value.length - 4]);
+                }
+
+                let threeDaysAgo_cases = threeDaysAgo.reduce((a, {confirmed}) => a + confirmed, 0);
+                let threeDaysAgo_deaths = threeDaysAgo.reduce((a, {deaths}) => a + deaths, 0);
+                let threeDaysAgo_recovered = threeDaysAgo.reduce((a, {recovered}) => a + recovered, 0);
+
+                let casesNewSince3DaysAgo = cases - threeDaysAgo_cases;
+                let deathsNewSince3DaysAgo = deaths - threeDaysAgo_deaths;
+                let recoveredNewSince3DaysAgo = recovered - threeDaysAgo_recovered;
+
+                this.casesPercentageSince3DaysAgo = casesNewSince3DaysAgo * 100 / cases;
+                this.deathsPercentageSince3DaysAgo = deathsNewSince3DaysAgo * 100 / deaths;
+                this.recoveredPercentageSince3DaysAgo = recoveredNewSince3DaysAgo * 100 / recovered;
+
+                
                 
             })
             .catch(err => {
