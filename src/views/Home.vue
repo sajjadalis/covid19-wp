@@ -157,7 +157,7 @@
                             </div>
                             
                             <div id="canvas-holder" style="width:100%">
-                                <canvas id="myChart"></canvas>
+                                <canvas id="countryChart"></canvas>
                             </div>
                         </div>
 
@@ -305,7 +305,7 @@
 
                 this.country = {
                     name: country,
-                    date: moment(latest.date).format('MMMM Do, YYYY'),
+                    date: moment(latest.date, "YYYY-M-DD").format('MMMM Do, YYYY'),
                     cases: latest.confirmed,
                     deaths: latest.deaths,
                     recovered: latest.recovered,
@@ -338,7 +338,7 @@
                 }
 
                 // CHART JS //
-                let ctx = document.getElementById('myChart');
+                let ctx = document.getElementById('countryChart');
                 this.chart = new Chart(ctx, {
                         type: this.charttype,
                         data: chartData,

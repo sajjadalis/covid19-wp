@@ -101,6 +101,14 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 .tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover {
     background-color: #333;
 }
+.tabulator .tabulator-footer .tabulator-page {
+    background: hsla(0,0%,100%,.2)!important;
+    color: #444!important;
+}
+.tabulator .tabulator-footer .tabulator-page:hover {
+    background-color: #444!important;
+    color: #fff!important;
+}
 
 @media (min-width: 960px) {
     .uk-section {
@@ -185,10 +193,12 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 }
 .cov-card .cov-stats {
     font-size: 18px;
+    line-height: 130%;
 }
 .cov-grid-wide {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    margin-top: 10px;
 }
 .cov-grid {
     display: grid;
@@ -240,6 +250,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 ul.chart-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 ul.chart-list li:before {
     content: '';
@@ -382,6 +393,7 @@ ul.chart-list li.casesper1m:before {
     font-size: 11px;
     text-transform: uppercase;
     border-radius: 5px;
+    z-index: 999;
 }
 
 @media (min-width: 960px){

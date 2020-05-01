@@ -125,7 +125,7 @@ export default {
                     global.push(value[value.length - 1]);
                 }
                 
-                let date = moment( global[global.length - 1].date ).format('MMMM Do, YYYY');
+                let date = moment( global[global.length - 1].date, "YYYY-M-DD" ).format('MMMM Do, YYYY');
                 let cases = global.reduce((a, {confirmed}) => a + confirmed, 0);
                 let deaths = global.reduce((a, {deaths}) => a + deaths, 0);
                 let recovered = global.reduce((a, {recovered}) => a + recovered, 0);

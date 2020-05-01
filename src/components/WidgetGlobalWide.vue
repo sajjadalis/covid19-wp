@@ -13,20 +13,20 @@
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labelcases }}</h3>
                     <h2 :style="{ 'color': textcolor }">{{ global.cases.toLocaleString() }}</h2>
-                    <p>+{{ casesPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
-                    <p>+{{ casesPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
+                    <p :style="{ 'color': textcolor }">+{{ casesPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
+                    <p :style="{ 'color': textcolor }">+{{ casesPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labeldeaths }}</h3>
                     <h2 :style="{ 'color': textcolor }">{{ global.deaths.toLocaleString() }}</h2>
-                    <p>+{{ deathsPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
-                    <p>+{{ deathsPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
+                    <p :style="{ 'color': textcolor }">+{{ deathsPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
+                    <p :style="{ 'color': textcolor }">+{{ deathsPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labelrecovered }}</h3>
                     <h2 :style="{ 'color': textcolor }">{{ global.recovered.toLocaleString() }}</h2>
-                    <p>+{{ recoveredPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
-                    <p>+{{ recoveredPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
+                    <p :style="{ 'color': textcolor }">+{{ recoveredPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
+                    <p :style="{ 'color': textcolor }">+{{ recoveredPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
             </div>
         </div>
@@ -109,7 +109,7 @@ export default {
                     global.push(value[value.length - 1]);
                 }
                 
-                let date = moment( global[global.length - 1].date ).format('MMMM Do, YYYY');
+                let date = moment( global[global.length - 1].date, "YYYY-M-DD" ).format('MMMM Do, YYYY');
                 let cases = global.reduce((a, {confirmed}) => a + confirmed, 0);
                 let deaths = global.reduce((a, {deaths}) => a + deaths, 0);
                 let recovered = global.reduce((a, {recovered}) => a + recovered, 0);
