@@ -1,11 +1,10 @@
 import Vue from 'vue'
 import VueRouter from 'vue-router'
 import Home from '../views/Home.vue'
-import Shortcode from'../views/Shortcode.vue'
 import Table from'../views/Table.vue'
 import Chart from'../views/Chart.vue'
 import Lost from '@/views/404'
-import New from '@/views/New'
+import Csv from '@/views/CSV'
 
 Vue.use(VueRouter)
 
@@ -17,8 +16,8 @@ const routes = [
   // },
   {
     path: '/',
-    name: 'shortcode-generator',
-    component: Shortcode
+    name: 'home',
+    component: Home
   },
   {
     path: '/table',
@@ -31,9 +30,9 @@ const routes = [
     component: Chart
   },
   {
-    path: '/new',
-    name: 'new',
-    component: New
+    path: '/csv',
+    name: 'csv',
+    component: Csv
   },
   {
     path: '/*',

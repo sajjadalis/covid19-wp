@@ -9,23 +9,28 @@
 
         <div v-else-if="global" class="cov-card" :style="{ 'width': cardwidth, 'background-color': bgcolor, 'box-shadow': '0 0 30px 0' + bgcolor + 80  }">
             <h3>{{ labeltitle }}</h3>
-            <h5>{{ labelglobal }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ taken_at }}</span></h5>
+            <h5>{{ labelglobal }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ global.date }}</span></h5>
             <i class="fas fa-virus cov-icon"></i>
             <div class="cov-grid">
                 <div v-if="cases" class="cov-col">
                     <i class="fas fa-head-side-cough" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelcases }}</h4>
-                    <div class="cov-stats">{{ global.total_cases }} <span class="cov-new">+{{ global.new_cases }} New</span></div>
+                    <div class="cov-stats">{{ global.cases.toLocaleString() }} <span class="cov-new">+{{ global.cases_new.toLocaleString() }} New</span></div>
                 </div>
                 <div v-if="deaths" class="cov-col">
                     <i class="fas fa-head-side-virus" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labeldeaths }}</h4>
-                    <div class="cov-stats">{{ global.total_deaths }} <span class="cov-new">+{{ global.new_deaths }} New</span></div>
+                    <div class="cov-stats">{{ global.deaths.toLocaleString() }} <span class="cov-new">+{{ global.deaths_new.toLocaleString() }} New</span></div>
                 </div>
                 <div v-if="recovered" class="cov-col">
                     <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelrecovered }}</h4>
-                    <div class="cov-stats">{{ global.total_recovered }}</div>
+                    <div class="cov-stats">{{ global.recovered.toLocaleString() }}</div>
+                </div>
+                <div v-if="active" class="cov-col">
+                    <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
+                    <h4>{{ labelactive }}</h4>
+                    <div class="cov-stats">{{ global.active.toLocaleString() }}</div>
                 </div>
             </div>
         </div>
@@ -37,8 +42,6 @@
 <script>
 import axios from 'axios'
 import moment from 'moment'
-var host = 'coronavirus-monitor.p.rapidapi.com';
-var key = 'cfd416e672msh1d31722e56ea3c4p1e4ffejsn11819d2d30f2';
 
 export default {
     props: {
@@ -62,6 +65,10 @@ export default {
             type: Boolean,
             default: true
         },
+        'active': {
+            type: Boolean,
+            default: true
+        },
         'labeltitle': {
             type: String,
             default: 'Corona (COVID-19)'
@@ -74,10 +81,6 @@ export default {
             type: String,
             default: 'Cases'
         },
-        'labelcases': {
-            type: String,
-            default: 'Cases'
-        },
         'labeldeaths': {
             type: String,
             default: 'Deaths'
@@ -85,6 +88,10 @@ export default {
         'labelrecovered': {
             type: String,
             default: 'Recovered'
+        },
+        'labelactive': {
+            type: String,
+            default: 'Active Cases'
         }
     },
     data() {
@@ -95,22 +102,76 @@ export default {
         }
     },
     methods: {
-        globalData() {
-            let worldstat = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/worldstat.php';
 
-            axios.get(worldstat, 
-            { headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }  } )
+        async globalData() {  
+
+            await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
-                this.global = res.data;
-                this.taken_at = moment(this.global.statistic_taken_at).format('ll');
+
+                // Define yesterday global data in order to get new cases and deaths
+                let yesterday = []
+                for (let [key, value] of Object.entries(res.data)) {
+                    yesterday.push(value[value.length - 2]);
+                }
+                
+                let yesterday_cases = yesterday.reduce((a, {confirmed}) => a + confirmed, 0);
+                let yesterday_deaths = yesterday.reduce((a, {deaths}) => a + deaths, 0);
+
+                // Define latest global data
+                let global = [];
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    global.push(value[value.length - 1]);
+                }
+                
+                let date = moment( global[global.length - 1].date ).format('MMMM Do, YYYY');
+                let cases = global.reduce((a, {confirmed}) => a + confirmed, 0);
+                let deaths = global.reduce((a, {deaths}) => a + deaths, 0);
+                let recovered = global.reduce((a, {recovered}) => a + recovered, 0);
+                let active = cases - deaths - recovered;
+                let cases_new = cases - yesterday_cases;
+                let deaths_new = deaths - yesterday_deaths;
+
+                this.global = {
+                    date: date,
+                    cases: cases,
+                    cases_new: cases_new,
+                    deaths: deaths,
+                    deaths_new: deaths_new,
+                    recovered: recovered,
+                    active: active
+                }
+
+                console.log(this.global);
+
+                // console.log(confirmed);
+                // console.log(deaths);
+                // console.log(recovered);
+                // console.log(active)
+                
             })
-            .catch(function(e) {
-                console.log(e);
+            .catch(err => {
+                console.log(err);
             })
             .finally(() => {
                 this.loading = false;
             });
-        }
+        },
+        // async globalData() {
+
+        //     axios.get(worldstat, 
+        //     { headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }  } )
+        //     .then(res => {
+        //         this.global = res.data;
+        //         this.taken_at = moment(this.global.statistic_taken_at).format('ll');
+        //     })
+        //     .catch(function(e) {
+        //         console.log(e);
+        //     })
+        //     .finally(() => {
+        //         this.loading = false;
+        //     });
+        // }
     },
     mounted() {
         this.globalData();

@@ -10,38 +10,28 @@
                 
             <h3>{{ labeltitle }}</h3>
             
-            <h5 >{{ country.country_name }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ taken_at }}</span></h5>
+            <h5 >{{ country.name }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ taken_at }}</span></h5>
             <i class="fas fa-virus cov-icon"></i>
             <div class="cov-grid">
                 <div v-if="cases" class="cov-col">
                     <i class="fas fa-head-side-cough" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelcases }}</h4>
-                    <div class="cov-stats">{{ country.total_cases }} <span class="cov-new">+{{ country.new_cases }} New</span></div>
+                    <div class="cov-stats">{{ country.cases }} <span class="cov-new">+{{ country.cases_new }} New</span></div>
                 </div>
                 <div v-if="deaths" class="cov-col">
                     <i class="fas fa-head-side-virus" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labeldeaths }}</h4>
-                    <div class="cov-stats">{{ country.total_deaths }} <span class="cov-new">+{{ country.new_deaths }} New</span></div>
-                </div>
-                <div v-if="critical" class="cov-col">
-                    <i class="fas fa-lungs-virus" :style="{ 'color': bgcolor }"></i>
-                    <h4>{{ labelcritical }}</h4>
-                    <div class="cov-stats">{{ country.serious_critical }}</div>
+                    <div class="cov-stats">{{ country.deaths }} <span class="cov-new">+{{ country.deaths_new }} New</span></div>
                 </div>
                 <div v-if="recovered" class="cov-col">
                     <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelrecovered }}</h4>
-                    <div class="cov-stats">{{ country.total_recovered }}</div>
+                    <div class="cov-stats">{{ country.recovered }}</div>
                 </div>
                 <div v-if="active" class="cov-col">
                     <i class="fas fa-syringe" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelactive }}</h4>
-                    <div class="cov-stats">{{ activeCases }}</div>
-                </div>
-                <div v-if="casesperm" class="cov-col">
-                    <i class="fas fa-viruses" :style="{ 'color': bgcolor }"></i>
-                    <h4>{{ labelcasesperm }}</h4>
-                    <div class="cov-stats">{{ country.total_cases_per1m }}</div>
+                    <div class="cov-stats">{{ country.active }}</div>
                 </div>
             </div>
             
@@ -53,15 +43,12 @@
     </div>
 </template>
 <script>
-import axios from 'axios'
-import moment from 'moment'
 export default {
     props: {
         'loading': {
             type: Boolean
         },
         'country': {
-            type: Array
         },
         'selectedcountry': {
             type: String,

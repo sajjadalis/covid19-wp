@@ -42,56 +42,62 @@ export default {
                     { column: "confirmed", dir: "desc" }
                 ],
                 columns: [
-                    {title:"Date", field:"date"},
-                    {title:"Confirmed", field:"confirmed", sorter:"number"},
-                    {title:"Deaths", field:"deaths", sorter:"number"},
-                    {title:"Recovered", field:"recovered", sorter:"number"},
-                    {title:"Active Cases", field:"active", sorter:"number"},
+                    {title:"Country", field:"country"},
+                    {title:"Cases", field:"confirmed", sorter:"number", formatter:"money", formatterParams:{precision:false}},
+                    {title:"New Cases", field:"cases_new", sorter:"number", formatter:"money", formatterParams:{precision:false}},
+                    {title:"Deaths", field:"deaths", sorter:"number", formatter:"money", formatterParams:{precision:false}},
+                    {title:"New Deaths", field:"deaths_new", sorter:"number", formatter:"money", formatterParams:{precision:false}},
+                    {title:"Total Recovered", field:"recovered", sorter:"number", formatter:"money", formatterParams:{precision:false}},
+                    {title:"Active Cases", field:"active_cases", sorter:"number", formatter:"money", formatterParams:{precision:false}}
                 ]
             }
         }
     },
     mounted() {
-        this.countriesStats();
+        this.countriesTable();
     },
     methods: {
-        countriesStats() {
+        async countriesTable() {
+
             this.loading = true;
-            
-            let host = 'coronavirus-monitor.p.rapidapi.com';
-            let key = 'cfd416e672msh1d31722e56ea3c4p1e4ffejsn11819d2d30f2';
 
-            let cases_by_country = 'https://pomber.github.io/covid19/timeseries.json';
-
-            axios.get(cases_by_country)
+            await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
-                
-                this.tabledata = res.data["Pakistan"].map(({ date, confirmed, recovered, deaths }) => {
-                
-                        return { 
-                            date:  date,
-                            confirmed: confirmed,
-                            recovered: recovered,
-                            deaths: deaths,
-                            active: confirmed - recovered - deaths
-                        }
-                    //console.log(`${date} active cases: ${confirmed - recovered - deaths}`);
-                });       
 
+                let yesterday = []
+                for (let [key, value] of Object.entries(res.data)) {
+                    yesterday.push(value[value.length - 2]);
+                }
+                
+                let yesterday_cases = yesterday.reduce((a, {confirmed}) => a + confirmed, 0);
+                let yesterday_deaths = yesterday.reduce((a, {deaths}) => a + deaths, 0);
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    this.tabledata.push(
+                        {
+                            country:key,
+                            cases_new: value[value.length - 1].confirmed - value[value.length - 2].confirmed,
+                            deaths_new: value[value.length - 1].deaths - value[value.length - 2].deaths,
+                            active_cases: value[value.length - 1].confirmed - value[value.length - 1].deaths - value[value.length - 1].recovered,
+                            ...value[value.length - 1]
+                        }
+                    );
+                }
+
+                console.log(this.tabledata);
             })
-            .catch(function(e) {
-                console.log(e);
+            .catch(err => {
+                console.log(err);
             })
             .finally(() => {
                 this.loading = false;
             });
-
         }
     },
     computed: {
         filteredCountries() {
             return this.tabledata.filter((country) => {
-                return country.date.toLowerCase().match(this.search.toLowerCase())
+                return country.country.toLowerCase().match(this.search.toLowerCase())
             })
         }
     }

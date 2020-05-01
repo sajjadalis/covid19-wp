@@ -1,4 +1,4 @@
-# tiktok-app
+# covid19-wp
 
 ## Project setup
 ```
