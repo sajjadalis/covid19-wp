@@ -1,14 +1,18 @@
 <template>
   <div id="app">
-    <header-layout :bgcolor="bgcolor" :header="header"></header-layout>
+    <Header :bgcolor="bgcolor" :header="header" />
     <router-view/>
+    <Footer />
+
   </div>
 </template>
 <script>
 import Header from '@/components/layout/Header'
+import Footer from '@/components/layout/Footer'
 export default {
   components: {
-    'header-layout': Header
+    Header,
+    Footer
   },
   data() {
     return{

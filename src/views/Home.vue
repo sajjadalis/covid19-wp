@@ -298,10 +298,10 @@
             await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
 
-                let latest = res.data[country][res.data[country].length - 1]
-                let yesterday = res.data[country][res.data[country].length - 2];
+                console.log(res.data);
 
-                console.log(`${country} [${latest.date}]`);                
+                let latest = res.data[country][res.data[country].length - 1]
+                let yesterday = res.data[country][res.data[country].length - 2];              
 
                 this.country = {
                     name: country,
@@ -313,8 +313,6 @@
                     cases_new: latest.confirmed - yesterday.confirmed,
                     deaths_new : latest.deaths - yesterday.deaths
                 }
-
-                console.log(this.country);
                 
                 let chartLabel = 'Corona Stats for ' + country;
                 
