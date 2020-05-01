@@ -327,6 +327,9 @@
 
             let host = process.env.VUE_APP_API_HOST;
             let key = process.env.VUE_APP_API_KEY;
+
+            console.log(host);
+            
             let stat_by_country = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/latest_stat_by_country.php';
 
             axios.get(stat_by_country, { 
