@@ -84,7 +84,6 @@ export default {
                     );
                 }
 
-                console.log(this.tabledata);
             })
             .catch(err => {
                 console.log(err);

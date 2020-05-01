@@ -116,7 +116,7 @@ export default {
                     this.countriesList.push(key);
                 }
 
-                console.log(countries);
+                //console.log(countries);
             })
         }
     },

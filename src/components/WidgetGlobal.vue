@@ -98,12 +98,13 @@ export default {
         return {
             loading: true,
             global: null,
-            taken_at: ''
         }
     },
     methods: {
 
         async globalData() {  
+
+            this.loading = true;
 
             await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
@@ -141,13 +142,6 @@ export default {
                     recovered: recovered,
                     active: active
                 }
-
-                console.log(this.global);
-
-                // console.log(confirmed);
-                // console.log(deaths);
-                // console.log(recovered);
-                // console.log(active)
                 
             })
             .catch(err => {
@@ -156,22 +150,7 @@ export default {
             .finally(() => {
                 this.loading = false;
             });
-        },
-        // async globalData() {
-
-        //     axios.get(worldstat, 
-        //     { headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }  } )
-        //     .then(res => {
-        //         this.global = res.data;
-        //         this.taken_at = moment(this.global.statistic_taken_at).format('ll');
-        //     })
-        //     .catch(function(e) {
-        //         console.log(e);
-        //     })
-        //     .finally(() => {
-        //         this.loading = false;
-        //     });
-        // }
+        }
     },
     mounted() {
         this.globalData();

@@ -17,23 +17,19 @@
                         :cases="cases"
                         :deaths="deaths"
                         :recovered="recovered"
-                        :critical="critical"
                         :active="active"
-                        :casesperm="casesperm"
                         :labeltitle="labeltitle"
                         :labelglobal="labelglobal"
                         :labelcases="labelcases"
                         :labeldeaths="labeldeaths"
                         :labelrecovered="labelrecovered"
                         :labelactive="labelactive"
-                        :labelcasesperm="labelcasesperm"
                         @color="bgcolor = $event;"
                         @country="selectedcountry = $event; destroyChart(); countryData(selectedcountry);"
                         @chart="charttype = $event; destroyChart(); countryData(selectedcountry);"
                         @cardwidth="cardwidth = $event.target.value"
                         @cases="cases = !cases;"
                         @deaths="deaths = !deaths"
-                        @critical="critical = !critical"
                         @recovered="recovered = !recovered"
                         @active="active = !active"
                         @labeltitle="labeltitle = $event.target.value"
@@ -125,17 +121,13 @@
                             <span v-if="!cases"> cases="{{cases}}"</span>
                             <span v-if="!deaths"> deaths="{{deaths}}"</span>
                             <span v-if="!recovered"> recovered="{{recovered}}"</span>
-                            <span v-if="!critical"> critical="{{critical}}"</span>
                             <span v-if="!active"> active="{{active}}"</span>
-                            <span v-if="!casesperm"> casesperm="{{casesperm}}"</span>
                             <span v-if="labeltitle != 'Corona (COVID-19)'"> title="{{labeltitle}}"</span>
                             <span v-if="labelglobal != 'Global Stats'"> labelglobal="{{labelglobal}}"</span>
                             <span v-if="labelcases != 'Cases'"> labelcases="{{labelcases}}"</span>
                             <span v-if="labeldeaths != 'Deaths'"> labeldeaths="{{labeldeaths}}"</span>
                             <span v-if="labelrecovered != 'Recovered'"> labelrecovered="{{labelrecovered}}"</span>
-                            <span v-if="labelactive != 'Active Cases'"> labelactive="{{labelactive}}"</span>
-                            <span v-if="labelcritical != 'Critical'"> labelcritical="{{labelcritical}}"</span>
-                            <span v-if="labelcasesperm != 'Cases / 1M'"> labelcasesperm="{{labelcasesperm}}"</span>]
+                            <span v-if="labelactive != 'Active Cases'"> labelactive="{{labelactive}}"</span>]
                         </div>
 
                         <br /> <br />
@@ -174,17 +166,13 @@
                             [covid-widget type="country-chart" country="{{selectedcountry}}" charttype="{{charttype}}"<span v-if="!cases"> cases="{{cases}}"</span>
                             <span v-if="!deaths"> deaths="{{deaths}}"</span>
                             <span v-if="!recovered"> recovered="{{recovered}}"</span>
-                            <span v-if="!critical"> critical="{{critical}}"</span>
                             <span v-if="!active"> active="{{active}}"</span>
-                            <span v-if="!casesperm"> casesperm="{{casesperm}}"</span>
                             <span v-if="labeltitle != 'Corona (COVID-19)'"> title="{{labeltitle}}"</span>
                             <span v-if="labelglobal != 'Global Stats'"> labelglobal="{{labelglobal}}"</span>
                             <span v-if="labelcases != 'Cases'"> labelcases="{{labelcases}}"</span>
                             <span v-if="labeldeaths != 'Deaths'"> labeldeaths="{{labeldeaths}}"</span>
                             <span v-if="labelrecovered != 'Recovered'"> labelrecovered="{{labelrecovered}}"</span>
-                            <span v-if="labelactive != 'Active Cases'"> labelactive="{{labelactive}}"</span>
-                            <span v-if="labelcritical != 'Critical'"> labelcritical="{{labelcritical}}"</span>
-                            <span v-if="labelcasesperm != 'Cases / 1M'"> labelcasesperm="{{labelcasesperm}}"</span>]
+                            <span v-if="labelactive != 'Active Cases'"> labelactive="{{labelactive}}"</span>]
                         </div>
                         
 
