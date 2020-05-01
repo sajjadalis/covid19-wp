@@ -4,6 +4,7 @@ import Home from '../views/Home.vue'
 import Table from'../views/Table.vue'
 import Chart from'../views/Chart.vue'
 import Lost from '@/views/404'
+import Csv from '@/views/CSV'
 
 Vue.use(VueRouter)
 
@@ -27,6 +28,11 @@ const routes = [
     path: '/chart',
     name: 'chart',
     component: Chart
+  },
+  {
+    path: '/csv',
+    name: 'csv',
+    component: Csv
   },
   {
     path: '/*',

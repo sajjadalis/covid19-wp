@@ -49,15 +49,6 @@
                 </div>
 
                 <div>
-                    <label class="uk-form-label" for="form-horizontal-text">Disable Critical</label>
-                    
-                    <label class="rt-switch">
-                        <input type="checkbox" v-model="critical" @change="$emit('critical')" />
-                        <span class="rt-slider rt-round"></span>
-                    </label>
-                </div>
-
-                <div>
                     <label class="uk-form-label" for="form-horizontal-text">Disable Recovered</label>
                     
                     <label class="rt-switch">
@@ -71,15 +62,6 @@
                     
                     <label class="rt-switch">
                         <input type="checkbox" v-model="active" @change="$emit('active')" />
-                        <span class="rt-slider rt-round"></span>
-                    </label>
-                </div>
-
-                <div>
-                    <label class="uk-form-label" for="form-horizontal-text">Disable Cases / 1M</label>
-                    
-                    <label class="rt-switch">
-                        <input type="checkbox" v-model="casesperm" @change="$emit('casesperm')" />
                         <span class="rt-slider rt-round"></span>
                     </label>
                 </div>
@@ -109,16 +91,7 @@
                     <label class="uk-form-label" for="form-horizontal-text">Active</label>
                     <input class="uk-input" v-model="labelactive" type="text" @input="$emit('labelactive', $event)" />
                 </div>
-                <div>
-                    <label class="uk-form-label" for="form-horizontal-text">Critical</label>
-                    <input class="uk-input" v-model="labelcritical" type="text" @input="$emit('labelcritical', $event)" />
-                </div>
-                <div>
-                    <label class="uk-form-label" for="form-horizontal-text">Cases / 1M</label>
-                    <input class="uk-input" v-model="labelcasesperm" type="text" @input="$emit('labelcasesperm', $event)" />
-                </div>
             </div>
-            
         </div>
     </div>
 </template>
@@ -134,23 +107,21 @@ export default {
             settings: true,
         }
     },
-    mounted() {
-        
-        let host = process.env.VUE_APP_API_HOST;
-        let key = process.env.VUE_APP_API_KEY;
-        let countriesList = 'https://coronavirus-monitor.p.rapidapi.com/coronavirus/affected.php';
-
-        axios.get(countriesList, 
-        { headers: { 'x-rapidapi-host': host, 'x-rapidapi-key': key }  } )
+    methods: {
+        async countries() {
+            await axios('https://pomber.github.io/covid19/countries.json')
             .then(res => {
 
-                this.countriesList = res.data.affected_countries;
-                //console.log(this.countriesList);
-                
+                for (let [key, value] of Object.entries(res.data)) {
+                    this.countriesList.push(key);
+                }
+
+                //console.log(countries);
             })
-            .catch(function(e) {
-            console.log(e);
-        });
+        }
+    },
+    mounted() {
+        this.countries();
     }
 }
 </script>
