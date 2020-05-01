@@ -102,12 +102,38 @@ export default {
 
                 console.log(countries);
             })
+        },
+        async countriesTable() {
+            await axios.get("https://pomber.github.io/covid19/timeseries.json")
+            .then(res => {
+                
+                let latest = [];
+
+                for (let [key, value] of Object.entries(res.data)) {
+                    latest.push(
+                        {
+                            country:key,
+                            cases_new: value[value.length - 1].confirmed - value[value.length - 2].confirmed,
+                            deaths_new: value[value.length - 1].deaths - value[value.length - 2].deaths,
+                            active_cases: value[value.length - 1].confirmed - value[value.length - 1].deaths - value[value.length - 1].recovered,
+                            ...value[value.length - 1]
+                        }
+                    );
+                }
+
+                console.log(latest);
+
+            })
+            .catch(err => {
+                console.log(err);
+            })
         }
     },
     mounted() {
         //this.countryData("US");
-        this.globalData();
-       //this.countries();
+        //this.globalData();
+        //this.countries();
+        this.countriesTable();
 
     }
 }

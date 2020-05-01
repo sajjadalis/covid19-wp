@@ -76,20 +76,22 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 	margin: 0 auto;
 	filter:  grayscale(0);
 }
-
-.tabulator-cell[tabulator-field="new_cases"] {
+.tabulator-cell[tabulator-field="country"] {
+    font-weight: 700;
+}
+.tabulator-cell[tabulator-field="cases_new"] {
     background-color: #e0f2ff;
     font-weight: 700;
 }
-.tabulator-cell[tabulator-field="new_cases"]:before {
+.tabulator-cell[tabulator-field="cases_new"]:before {
     content: "+"
 }
-.tabulator-cell[tabulator-field="new_deaths"] {
+.tabulator-cell[tabulator-field="deaths_new"] {
     background-color: #f00;
     color: #fff;
     font-weight: 700;
 }
-.tabulator-cell[tabulator-field="new_deaths"]:before {
+.tabulator-cell[tabulator-field="deaths_new"]:before {
     content: "+"
 }
 .tabulator .tabulator-header, .tabulator .tabulator-header .tabulator-col {
