@@ -8,7 +8,7 @@
 					<nav class="uk-navbar uk-navbar-container uk-navbar-transparent" data-uk-navbar>
 						<div class="uk-navbar-left">
 							<div class="uk-navbar-item uk-padding-remove-horizontal">
-								<router-link :to="{ name: 'home' }" class="uk-logo">CORONA COVID-19</router-link>
+								<router-link :to="{ name: 'home' }" class="uk-logo">CORONA (COVID-19) STATS</router-link>
 							</div>
 						</div>
 						<div class="uk-navbar-right">
