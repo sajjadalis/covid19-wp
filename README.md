@@ -16,8 +16,6 @@ Download or Clone this repository.
 
 ## License
 
-**Data Source:** [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19) via [pomber/covid19](https://github.com/pomber/covid19). 
-
-Data copyright 2020 Johns Hopkins University. The data is under [CSSEGISandData/COVID-19](https://github.com/CSSEGISandData/COVID-19) terms of use.
+**Data Source:** [NovelCOVID/API](https://github.com/NovelCOVID/API). Documentation can be found [here](https://disease.sh/docs/). Please check Privacy Policy [here](https://github.com/NovelCOVID/API/blob/master/privacy.md) and License [here](https://github.com/NovelCOVID/API/blob/master/LICENSE)
 
 The code for this repo and [WordPress plugin](https://github.com/sajjadalis/corona-covid-stats) is under MIT licensed.
