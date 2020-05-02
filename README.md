@@ -1,6 +1,11 @@
 ## Website Source for CORONA (COVID-19) Stats WordPress Plugin
 
-The website is used as demo and shortcode generator for CORONA (COVID-19) Stats WordPress Plugin available at [sajjadalis/corona-covid-stats](https://github.com/sajjadalis/corona-covid-stats)
+The website is used as demo and shortcode generator for CORONA (COVID-19) Stats WordPress Plugin.
+
+You can download CORONA (COVID-19) Stats from WordPress Plugin Repository.
+[https://wordpress.org/plugins/corona-covid-19-stats/](https://wordpress.org/plugins/corona-covid-19-stats/)
+
+Plugin Repo also available at [sajjadalis/corona-covid-stats](https://github.com/sajjadalis/corona-covid-stats)
 
 **[https://covid19-wp.netlify.app/](https://covid19-wp.netlify.app/)**
 
