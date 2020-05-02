@@ -89,22 +89,22 @@
                                 <div v-if="cases" class="cov-col">
                                     <i class="fas fa-head-side-cough" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labelcases }}</h4>
-                                    <div class="cov-stats">{{ country.cases.toLocaleString() }} <span class="cov-new">+{{ country.cases_new.toLocaleString() }} New</span></div>
+                                    <div class="cov-stats">{{ country.cases }} <span class="cov-new">+{{ country.cases_new }} New</span></div>
                                 </div>
                                 <div v-if="deaths" class="cov-col">
                                     <i class="fas fa-head-side-virus" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labeldeaths }}</h4>
-                                    <div class="cov-stats">{{ country.deaths.toLocaleString() }} <span class="cov-new">+{{ country.deaths_new.toLocaleString() }} New</span></div>
+                                    <div class="cov-stats">{{ country.deaths }} <span class="cov-new">+{{ country.deaths_new }} New</span></div>
                                 </div>
                                 <div v-if="recovered" class="cov-col">
                                     <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labelrecovered }}</h4>
-                                    <div class="cov-stats">{{ country.recovered.toLocaleString() }}</div>
+                                    <div class="cov-stats">{{ country.recovered }}</div>
                                 </div>
                                 <div v-if="active" class="cov-col">
                                     <i class="fas fa-syringe" :style="{ 'color': bgcolor }"></i>
                                     <h4>{{ labelactive }}</h4>
-                                    <div class="cov-stats">{{ country.active.toLocaleString() }}</div>
+                                    <div class="cov-stats">{{ country.active }}</div>
                                 </div>
                             </div>
                             
@@ -145,10 +145,10 @@
                                 <h5 >{{ country.name }} <span class="cov-updated" style="background-color: #333; color: #fff;">{{ country.date }}</span></h5>
                                 <i class="fas fa-virus cov-icon"></i>
                                 <ul class="chart-list">
-                                    <li v-if="cases" class="cases">{{ labelcases }}: {{ country.cases.toLocaleString() }} <span>+{{ country.cases_new }} New</span></li>
-                                    <li v-if="deaths" class="deaths">{{ labeldeaths }}: {{ country.deaths.toLocaleString() }} <span>+{{ country.deaths_new }} New</span></li>
-                                    <li v-if="recovered" class="recovered">{{ labelrecovered }}: {{ country.recovered.toLocaleString() }}</li>
-                                    <li v-if="active" class="active-cases">{{ labelactive }}: {{ country.active.toLocaleString() }}</li>
+                                    <li v-if="cases" class="cases">{{ labelcases }}: {{ country.cases }} <span>+{{ country.cases_new }} New</span></li>
+                                    <li v-if="deaths" class="deaths">{{ labeldeaths }}: {{ country.deaths }} <span>+{{ country.deaths_new }} New</span></li>
+                                    <li v-if="recovered" class="recovered">{{ labelrecovered }}: {{ country.recovered }}</li>
+                                    <li v-if="active" class="active-cases">{{ labelactive }}: {{ country.active }}</li>
                                 </ul>
                             </div>
 
@@ -298,7 +298,7 @@
             await axios.get("https://pomber.github.io/covid19/timeseries.json")
             .then(res => {
 
-                console.log(res.data);
+                //.log(res.data);
 
                 let latest = res.data[country][res.data[country].length - 1]
                 let yesterday = res.data[country][res.data[country].length - 2];              

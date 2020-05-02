@@ -9,10 +9,9 @@ import axios from 'axios'
 export default {
     methods: {
         novelData() {
-
             axios.get("https://corona.lmao.ninja/v2/all")
             .then(res => {
-                console.log(res.data);
+                console.log(res);
             })
             .catch(error => {
                 console.log(error)

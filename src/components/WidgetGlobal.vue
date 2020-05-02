@@ -9,28 +9,28 @@
 
         <div v-else-if="global" class="cov-card" :style="{ 'width': cardwidth, 'background-color': bgcolor, 'box-shadow': '0 0 30px 0' + bgcolor + 80  }">
             <h3>{{ labeltitle }}</h3>
-            <h5>{{ labelglobal }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ global.date }}</span></h5>
+            <h5>{{ labelglobal }} <span class="cov-updated" :style="{ 'color': bgcolor }">{{ updated }}</span></h5>
             <i class="fas fa-virus cov-icon"></i>
             <div class="cov-grid">
                 <div v-if="cases" class="cov-col">
                     <i class="fas fa-head-side-cough" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelcases }}</h4>
-                    <div class="cov-stats">{{ global.cases.toLocaleString() }} <span class="cov-new">+{{ global.cases_new.toLocaleString() }} New</span></div>
+                    <div class="cov-stats">{{ global.cases }} <span class="cov-new">+{{ global.todayCases }} New</span></div>
                 </div>
                 <div v-if="deaths" class="cov-col">
                     <i class="fas fa-head-side-virus" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labeldeaths }}</h4>
-                    <div class="cov-stats">{{ global.deaths.toLocaleString() }} <span class="cov-new">+{{ global.deaths_new.toLocaleString() }} New</span></div>
+                    <div class="cov-stats">{{ global.deaths }} <span class="cov-new">+{{ global.todayDeaths }} New</span></div>
                 </div>
                 <div v-if="recovered" class="cov-col">
                     <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelrecovered }}</h4>
-                    <div class="cov-stats">{{ global.recovered.toLocaleString() }}</div>
+                    <div class="cov-stats">{{ global.recovered }}</div>
                 </div>
                 <div v-if="active" class="cov-col">
                     <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelactive }}</h4>
-                    <div class="cov-stats">{{ global.active.toLocaleString() }}</div>
+                    <div class="cov-stats">{{ global.active }}</div>
                 </div>
             </div>
         </div>
@@ -98,6 +98,7 @@ export default {
         return {
             loading: true,
             global: null,
+            updated: ''
         }
     },
     methods: {
@@ -106,42 +107,15 @@ export default {
 
             this.loading = true;
 
-            await axios.get("https://pomber.github.io/covid19/timeseries.json")
+            await axios.get("https://disease.sh/v2/all")
             .then(res => {
 
-                // Define yesterday global data in order to get new cases and deaths
-                let yesterday = []
-                for (let [key, value] of Object.entries(res.data)) {
-                    yesterday.push(value[value.length - 2]);
-                }
+                this.global = res.data;
                 
-                let yesterday_cases = yesterday.reduce((a, {confirmed}) => a + confirmed, 0);
-                let yesterday_deaths = yesterday.reduce((a, {deaths}) => a + deaths, 0);
+                this.updated = moment.unix(this.global.updated);
 
-                // Define latest global data
-                let global = [];
-
-                for (let [key, value] of Object.entries(res.data)) {
-                    global.push(value[value.length - 1]);
-                }
+                console.log(this.global);
                 
-                let date = moment( global[global.length - 1].date, "YYYY-M-DD" ).format('MMMM Do, YYYY');
-                let cases = global.reduce((a, {confirmed}) => a + confirmed, 0);
-                let deaths = global.reduce((a, {deaths}) => a + deaths, 0);
-                let recovered = global.reduce((a, {recovered}) => a + recovered, 0);
-                let active = cases - deaths - recovered;
-                let cases_new = cases - yesterday_cases;
-                let deaths_new = deaths - yesterday_deaths;
-
-                this.global = {
-                    date: date,
-                    cases: cases,
-                    cases_new: cases_new,
-                    deaths: deaths,
-                    deaths_new: deaths_new,
-                    recovered: recovered,
-                    active: active
-                }
                 
             })
             .catch(err => {

@@ -12,19 +12,19 @@
             <div class="cov-grid-wide">
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labelcases }}</h3>
-                    <h2 :style="{ 'color': textcolor }">{{ global.cases.toLocaleString() }}</h2>
+                    <h2 :style="{ 'color': textcolor }">{{ global.cases }}</h2>
                     <p :style="{ 'color': textcolor }">+{{ casesPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
                     <p :style="{ 'color': textcolor }">+{{ casesPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labeldeaths }}</h3>
-                    <h2 :style="{ 'color': textcolor }">{{ global.deaths.toLocaleString() }}</h2>
+                    <h2 :style="{ 'color': textcolor }">{{ global.deaths }}</h2>
                     <p :style="{ 'color': textcolor }">+{{ deathsPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
                     <p :style="{ 'color': textcolor }">+{{ deathsPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
                 <div>
                     <h3 :style="{ 'color': textcolor }">{{ labelrecovered }}</h3>
-                    <h2 :style="{ 'color': textcolor }">{{ global.recovered.toLocaleString() }}</h2>
+                    <h2 :style="{ 'color': textcolor }">{{ global.recovered }}</h2>
                     <p :style="{ 'color': textcolor }">+{{ recoveredPercentageSinceYesterday.toFixed(2) }}% since Yesterday</p>
                     <p :style="{ 'color': textcolor }">+{{ recoveredPercentageSince3DaysAgo.toFixed(2) }}% since 3 days ago</p>
                 </div>
