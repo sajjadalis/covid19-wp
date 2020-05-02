@@ -1,6 +1,6 @@
 <template>
     <div>
-        <div v-if="settings" uk-sticky class="uk-card uk-card-default uk-card-body uk-form-horizontal cov-options uk-sticky">
+        <div v-if="settings" uk-sticky class="uk-card uk-card-default uk-card-body uk-form-horizontal cov-options">
             <h2 class="cov-heading">Card Shortcode Settings</h2>
             <div class="uk-margin">
                 <label  class="uk-form-label" for="form-horizontal-select">Select Country</label>
@@ -49,6 +49,15 @@
                 </div>
 
                 <div>
+                    <label class="uk-form-label" for="form-horizontal-text">Disable Critical</label>
+                    
+                    <label class="rt-switch">
+                        <input type="checkbox" v-model="critical" @change="$emit('critical')" />
+                        <span class="rt-slider rt-round"></span>
+                    </label>
+                </div>
+
+                <div>
                     <label class="uk-form-label" for="form-horizontal-text">Disable Recovered</label>
                     
                     <label class="rt-switch">
@@ -62,6 +71,15 @@
                     
                     <label class="rt-switch">
                         <input type="checkbox" v-model="active" @change="$emit('active')" />
+                        <span class="rt-slider rt-round"></span>
+                    </label>
+                </div>
+
+                <div>
+                    <label class="uk-form-label" for="form-horizontal-text">Disable Cases / 1M</label>
+                    
+                    <label class="rt-switch">
+                        <input type="checkbox" v-model="casesperm" @change="$emit('casesperm')" />
                         <span class="rt-slider rt-round"></span>
                     </label>
                 </div>
@@ -91,7 +109,16 @@
                     <label class="uk-form-label" for="form-horizontal-text">Active</label>
                     <input class="uk-input" v-model="labelactive" type="text" @input="$emit('labelactive', $event)" />
                 </div>
+                <div>
+                    <label class="uk-form-label" for="form-horizontal-text">Critical</label>
+                    <input class="uk-input" v-model="labelcritical" type="text" @input="$emit('labelcritical', $event)" />
+                </div>
+                <div>
+                    <label class="uk-form-label" for="form-horizontal-text">Cases / 1M</label>
+                    <input class="uk-input" v-model="labelcasesperm" type="text" @input="$emit('labelcasesperm', $event)" />
+                </div>
             </div>
+            
         </div>
     </div>
 </template>
@@ -102,26 +129,10 @@ export default {
     props: ['selectedcountry', 'bgcolor', 'charttype', 'cardwidth', 'cases', 'deaths', 'recovered', 'critical', 'active', 'casesperm', 'labeltitle', 'labelglobal', 'labelcases', 'labeldeaths', 'labelrecovered', 'labelcritical', 'labelactive', 'labelcasesperm',],
     data() {
         return{
-            countriesList: [],
+            countriesList: ["USA","Spain","Italy","UK","France","Germany","Russia","Turkey","Iran","Brazil","Canada","Belgium","Peru","Netherlands","India","Switzerland","Ecuador","Saudi Arabia","Portugal","Sweden","Ireland","Mexico","Pakistan","Chile","Singapore","Israel","Belarus","Austria","Qatar","Japan","Poland","UAE","Romania","Ukraine","Indonesia","S. Korea","Denmark","Serbia","Philippines","Bangladesh","Norway","Czechia","Dominican Republic","Colombia","Australia","Panama","Malaysia","South Africa","Egypt","Finland","Morocco","Kuwait","Argentina","Algeria","Moldova","Luxembourg","Kazakhstan","Bahrain","Thailand","Hungary","Greece","Oman","Afghanistan","Armenia","Iraq","Nigeria","Ghana","Uzbekistan","Croatia","Cameroon","Azerbaijan","Bosnia and Herzegovina","Iceland","Estonia","Bulgaria","Cuba","Guinea","North Macedonia","New Zealand","Slovenia","Slovakia","Lithuania","Ivory Coast","Bolivia","Senegal","Djibouti","Hong Kong","Tunisia","Honduras","Latvia","Cyprus","Albania","Kyrgyzstan","Andorra","Lebanon","Niger","Costa Rica","Diamond Princess","Sri Lanka","Burkina Faso","Uruguay","Guatemala","DRC","Somalia","Georgia","San Marino","Mayotte","Channel Islands","Sudan","Maldives","Mali","Tanzania","Malta","Jordan","El Salvador","Kenya","Jamaica","Taiwan","Réunion","Palestine","Venezuela","Paraguay","Mauritius","Montenegro","Isle of Man","Equatorial Guinea","Gabon","Vietnam","Guinea-Bissau","Rwanda","Congo","Faeroe Islands","Martinique","Sierra Leone","Liberia","Guadeloupe","Myanmar","Gibraltar","Brunei","Madagascar","Ethiopia","French Guiana","Togo","Cabo Verde","Cambodia","Zambia","Trinidad and Tobago","Bermuda","Eswatini","Aruba","Monaco","Benin","Haiti","Uganda","Bahamas","Guyana","Liechtenstein","Barbados","Mozambique","Sint Maarten","Cayman Islands","Chad","CAR","Libya","Nepal","French Polynesia","Macao","South Sudan","Syria","Eritrea","Mongolia","Saint Martin","Malawi","Zimbabwe","Tajikistan","Angola","Antigua and Barbuda","Timor-Leste","Botswana","Grenada","Laos","Belize","Fiji","New Caledonia","Saint Lucia","Curaçao","Sao Tome and Principe","Dominica","Namibia","St. Vincent Grenadines","Saint Kitts and Nevis","Nicaragua","Falkland Islands","Gambia","Turks and Caicos","Burundi","Montserrat","Greenland","Vatican City","Seychelles","Suriname","MS Zaandam","Mauritania","Papua New Guinea","Yemen","Bhutan","British Virgin Islands","Caribbean Netherlands","St. Barth","Western Sahara","Anguilla","Comoros","Saint Pierre Miquelon","China"],
             charttypeData: ['bar', 'horizontalBar', 'doughnut', 'pie', 'line', 'radar', 'polarArea'],
             settings: true,
         }
-    },
-    methods: {
-        async countries() {
-            await axios('https://pomber.github.io/covid19/countries.json')
-            .then(res => {
-
-                for (let [key, value] of Object.entries(res.data)) {
-                    this.countriesList.push(key);
-                }
-
-                //console.log(countries);
-            })
-        }
-    },
-    mounted() {
-        this.countries();
     }
 }
 </script>

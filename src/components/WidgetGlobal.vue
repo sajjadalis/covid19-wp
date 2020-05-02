@@ -22,9 +22,9 @@
                     <h4>{{ labeldeaths }}</h4>
                     <div class="cov-stats">{{ global.deaths.toLocaleString() }} <span class="cov-new">+{{ global.todayDeaths }} New</span></div>
                 </div>
-                <div class="cov-col">
-                    <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
-                    <h4>Critical</h4>
+                <div v-if="critical" class="cov-col">
+                    <i class="fas fa-lungs-virus" :style="{ 'color': bgcolor }"></i>
+                    <h4>{{ labelcritical }}</h4>
                     <div class="cov-stats">{{ global.critical.toLocaleString() }}</div>
                 </div>
                 <div v-if="recovered" class="cov-col">
@@ -33,13 +33,13 @@
                     <div class="cov-stats">{{ global.recovered.toLocaleString() }}</div>
                 </div>
                 <div v-if="active" class="cov-col">
-                    <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
+                    <i class="fas fa-syringe" :style="{ 'color': bgcolor }"></i>
                     <h4>{{ labelactive }}</h4>
                     <div class="cov-stats">{{ global.active.toLocaleString() }}</div>
                 </div>
-                <div v-if="active" class="cov-col">
-                    <i class="fas fa-lungs" :style="{ 'color': bgcolor }"></i>
-                    <h4>Cases / 1M</h4>
+                <div v-if="casesperm" class="cov-col">
+                    <i class="fas fa-viruses" :style="{ 'color': bgcolor }"></i>
+                    <h4>{{ labelcasesperm }}</h4>
                     <div class="cov-stats">{{ global.casesPerOneMillion.toLocaleString() }}</div>
                 </div>
             </div>
@@ -79,6 +79,14 @@ export default {
             type: Boolean,
             default: true
         },
+        'critical': {
+            type: Boolean,
+            default: true
+        },
+        'casesperm': {
+            type: Boolean,
+            default: true
+        },
         'labeltitle': {
             type: String,
             default: 'Corona (COVID-19)'
@@ -102,6 +110,14 @@ export default {
         'labelactive': {
             type: String,
             default: 'Active Cases'
+        },
+        'labelcritical': {
+            type: String,
+            default: 'Critical'
+        },
+        'labelcasesperm': {
+            type: String,
+            default: 'Cases / 1M'
         }
     },
     data() {
@@ -120,12 +136,7 @@ export default {
             await axios.get("https://disease.sh/v2/all")
             .then(res => {
 
-                this.global = res.data;
-                
-                this.updated = moment.unix(this.global.updated);
-
-                console.log(this.global);
-                
+                this.global = res.data;                
                 
             })
             .catch(err => {

@@ -76,20 +76,22 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 	margin: 0 auto;
 	filter:  grayscale(0);
 }
-
-.tabulator-cell[tabulator-field="new_cases"] {
+.tabulator-cell[tabulator-field="country"] {
+    font-weight: 700;
+}
+.tabulator-cell[tabulator-field="todayCases"] {
     background-color: #e0f2ff;
     font-weight: 700;
 }
-.tabulator-cell[tabulator-field="new_cases"]:before {
+.tabulator-cell[tabulator-field="todayCases"]:before {
     content: "+"
 }
-.tabulator-cell[tabulator-field="new_deaths"] {
+.tabulator-cell[tabulator-field="todayDeaths"] {
     background-color: #f00;
     color: #fff;
     font-weight: 700;
 }
-.tabulator-cell[tabulator-field="new_deaths"]:before {
+.tabulator-cell[tabulator-field="todayDeaths"]:before {
     content: "+"
 }
 .tabulator .tabulator-header, .tabulator .tabulator-header .tabulator-col {
@@ -98,6 +100,14 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 }
 .tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover {
     background-color: #333;
+}
+.tabulator .tabulator-footer .tabulator-page {
+    background: hsla(0,0%,100%,.2)!important;
+    color: #444!important;
+}
+.tabulator .tabulator-footer .tabulator-page:hover {
+    background-color: #444!important;
+    color: #fff!important;
 }
 
 @media (min-width: 960px) {
@@ -150,15 +160,16 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
   }
 
 
- .cov-card, .cov-card h3, .cov-card h4, .cov-card h5, .cov-card .cov-stats {
+.cov-card, .cov-card h3, .cov-card h4, .cov-card h5, .cov-card .cov-stats {
     font-family: 'Roboto Condensed', sans-serif;
 }
 .cov-card {
     position: relative;
-    width: 400px;
+    width: 450px;
     margin: auto;
     color: #fff;
     padding: 30px;
+    box-sizing: border-box;
     border-radius: 40px;
     box-shadow: 0 0 30px 0 rgba(30, 135, 240, 0.5);
 }
@@ -231,6 +242,7 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 ul.chart-list {
     list-style: none;
     padding: 0;
+    margin: 0;
 }
 ul.chart-list li:before {
     content: '';
@@ -373,6 +385,7 @@ ul.chart-list li.casesper1m:before {
     font-size: 11px;
     text-transform: uppercase;
     border-radius: 5px;
+    z-index: 999;
 }
 
 @media (min-width: 960px){
@@ -382,6 +395,17 @@ ul.chart-list li.casesper1m:before {
         float: left;
     }
 }
+
+
+@media (max-width: 540px) {
+    .cov-options.uk-sticky, .cov-options.uk-active.uk-sticky-fixed {
+        position: unset!important;
+    }
+}
+.uk-sticky-below {
+    position: sticky!important;
+}
+
 .cov-options .uk-margin {
     margin: 10px 0!important;
 }
@@ -527,10 +551,6 @@ ul.chart-list li.casesper1m:before {
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 0;
-}
-
-.uk-sticky-below {
-    position: sticky!important;
 }
 
 input.cov-input {
