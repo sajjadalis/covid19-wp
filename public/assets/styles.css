@@ -76,22 +76,20 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 	margin: 0 auto;
 	filter:  grayscale(0);
 }
-.tabulator-cell[tabulator-field="country"] {
-    font-weight: 700;
-}
-.tabulator-cell[tabulator-field="cases_new"] {
+
+.tabulator-cell[tabulator-field="new_cases"] {
     background-color: #e0f2ff;
     font-weight: 700;
 }
-.tabulator-cell[tabulator-field="cases_new"]:before {
+.tabulator-cell[tabulator-field="new_cases"]:before {
     content: "+"
 }
-.tabulator-cell[tabulator-field="deaths_new"] {
+.tabulator-cell[tabulator-field="new_deaths"] {
     background-color: #f00;
     color: #fff;
     font-weight: 700;
 }
-.tabulator-cell[tabulator-field="deaths_new"]:before {
+.tabulator-cell[tabulator-field="new_deaths"]:before {
     content: "+"
 }
 .tabulator .tabulator-header, .tabulator .tabulator-header .tabulator-col {
@@ -100,14 +98,6 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 }
 .tabulator .tabulator-header .tabulator-col.tabulator-sortable:hover {
     background-color: #333;
-}
-.tabulator .tabulator-footer .tabulator-page {
-    background: hsla(0,0%,100%,.2)!important;
-    color: #444!important;
-}
-.tabulator .tabulator-footer .tabulator-page:hover {
-    background-color: #444!important;
-    color: #fff!important;
 }
 
 @media (min-width: 960px) {
@@ -160,12 +150,12 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
   }
 
 
-.cov-card, .cov-card h3, .cov-card h4, .cov-card h5, .cov-card .cov-stats {
+ .cov-card, .cov-card h3, .cov-card h4, .cov-card h5, .cov-card .cov-stats {
     font-family: 'Roboto Condensed', sans-serif;
 }
 .cov-card {
     position: relative;
-    width: 350px;
+    width: 400px;
     margin: auto;
     color: #fff;
     padding: 30px;
@@ -191,18 +181,9 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
     font-size: 24px;
     margin-bottom: 20px;
 }
-.cov-card .cov-stats {
-    font-size: 18px;
-    line-height: 130%;
-}
-.cov-grid-wide {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    margin-top: 10px;
-}
 .cov-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(3, 1fr);
 }
 .cov-grid .cov-col {
     position: relative;
@@ -213,22 +194,22 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
     text-align: center;
     border-radius: 22px;
 }
-.cov-grid .cov-col:nth-child(2n) {
+.cov-grid .cov-col:nth-child(3n) {
     margin-right: 0;
 }
 .cov-grid .cov-col .fas {
     display: block;
-    width: 90px;
-    height: 90px;
-    font-size: 45px;
-    line-height: 200%;
+     width: 80px;
+    height: 80px;
+    font-size: 40px;
+    line-height: 190%;
     background-color: #fff;
     color: rgb(30, 135, 240);
     border-radius: 100%;
     margin: auto;
 }
 .cov-grid .cov-col h4 {
-    font-size: 18px;
+    font-size: 16px;
     font-weight: 700;
     color: #fff;
     text-transform: uppercase;
@@ -236,12 +217,12 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 }
 .cov-grid .cov-col span {
     position: absolute;
-    top: 95px;
-    left: 50%;
+    top: 88px;
+    right: 5px;
     background-color: #ef3232;
     color: #fff;
-    padding: 3px 6px 4px;
-    font-size: 13px;
+    padding: 3px 5px 4px;
+    font-size: 12px;
     border-radius: 20px;
 }
 
@@ -250,7 +231,6 @@ html, body, h1, h2, h3, h4, h5, h6, p, span, a,
 ul.chart-list {
     list-style: none;
     padding: 0;
-    margin: 0;
 }
 ul.chart-list li:before {
     content: '';
@@ -393,7 +373,6 @@ ul.chart-list li.casesper1m:before {
     font-size: 11px;
     text-transform: uppercase;
     border-radius: 5px;
-    z-index: 999;
 }
 
 @media (min-width: 960px){
@@ -403,17 +382,6 @@ ul.chart-list li.casesper1m:before {
         float: left;
     }
 }
-
-
-@media (max-width: 540px) {
-    .cov-options.uk-sticky, .cov-options.uk-active.uk-sticky-fixed {
-        position: unset!important;
-    }
-}
-.uk-sticky-below {
-    position: sticky!important;
-}
-
 .cov-options .uk-margin {
     margin: 10px 0!important;
 }
@@ -559,6 +527,10 @@ ul.chart-list li.casesper1m:before {
     font-weight: 700;
     text-transform: uppercase;
     margin-bottom: 0;
+}
+
+.uk-sticky-below {
+    position: sticky!important;
 }
 
 input.cov-input {
