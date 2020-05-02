@@ -4,7 +4,7 @@
 			<div class="uk-container">
 				<p class="uk-text-small uk-text-center">
             <strong>Data Source: </strong> 
-            <a href="https://github.com/CSSEGISandData/COVID-19">CSSEGISandData/COVID-19</a> via <a href="https://github.com/pomber/covid19">pomber/covid19</a>. Data copyright 2020 Johns Hopkins University. The data is under <a href="https://github.com/CSSEGISandData/COVID-19">CSSEGISandData/COVID-19</a> terms of use.
+            <a href="https://github.com/NovelCOVID/API">NovelCOVID/API</a>.  Documentation can be found <a href="https://disease.sh/docs/">here</a>. Please check Privacy Policy <a href="https://github.com/NovelCOVID/API/blob/master/privacy.md">here</a> and License <a href="https://github.com/NovelCOVID/API/blob/master/LICENSE">here</a>
             <br />
             The code for this website and WordPress plugin is under MIT licensed available on <a href="https://github.com/sajjadalis/covid19-wp">sajjadalis/covid19-wp</a> - <a href="https://github.com/sajjadalis/corona-covid-stats">sajjadalis/corona-covid-stats</a></p>
 			</div>
