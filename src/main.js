@@ -11,10 +11,6 @@ import VueAnalytics from 'vue-analytics'
 Vue.use(VueTabulator);
 Vue.use(VuePapaParse)
 Vue.use(Meta)
-Vue.use(VueAnalytics, {
-  id: 'UA-54179709-34',
-  router
-})
 
 Vue.component('v-select', vSelect)
 Vue.component('verte', Verte);
