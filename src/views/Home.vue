@@ -321,7 +321,7 @@
           subtitle: "Generate Shortcode to Display Widgets on Your Website",
           img: '/assets/img/martin-sanchez-j2c7yf223Mk-unsplash.jpg',
           button: {
-            url: 'https://github.com/sajjadalis/corona-covid-stats/archive/master.zip',
+            url: 'https://wordpress.org/plugins/corona-covid-19-stats/',
             txt: 'DOWNLOAD'
           }
         }
@@ -381,6 +381,10 @@
     },
     mounted() {
         this.countryData(this.selectedcountry);
+    },
+    metaInfo: {
+      title: 'Corona (COVID-19) Live Stats WordPress Plugin',
+      titleTemplate: null
     }
   }
 </script>

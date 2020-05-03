@@ -17,6 +17,7 @@
 								<li><router-link :to="{ name: 'table' }">Table</router-link></li>
 								<li><router-link :to="{ name: 'chart' }">Chart</router-link></li>
 								<li><a href="https://github.com/sajjadalis/corona-covid-stats" uk-icon="github" target="_blank"></a></li>
+								<li><a href="https://wordpress.org/plugins/corona-covid-19-stats/" uk-icon="wordpress" target="_blank"></a></li>
 								<li><a href="https://twitter.com/sajjadali" uk-icon="twitter"  target="_blank"></a></li>
 							</ul>
 							<a class="uk-navbar-toggle uk-navbar-item uk-hidden@s" data-uk-toggle data-uk-navbar-toggle-icon href="#offcanvas-nav"></a>

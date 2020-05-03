@@ -27,6 +27,11 @@ export default {
           }
       }
     }
+  },
+  metaInfo: {
+      title: 'Corona (COVID-19) Live Stats WordPress Plugin',
+      titleTemplate: '%s | Corona (COVID-19) Live Stats WordPress Plugin'
   }
+
 }
 </script>
