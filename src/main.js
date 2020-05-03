@@ -6,7 +6,6 @@ import Verte from 'verte';
 import VueTabulator from 'vue-tabulator';
 import VuePapaParse from 'vue-papa-parse'
 import Meta from 'vue-meta'
-import VueAnalytics from 'vue-analytics'
 
 Vue.use(VueTabulator);
 Vue.use(VuePapaParse)
