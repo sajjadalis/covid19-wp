@@ -66,7 +66,7 @@ export default {
             header: {
             title: "Chart",
             subtitle: "",
-            img: '/assets/img/martin-sanchez-j2c7yf223Mk-unsplash.jpg',
+            img: '/assets/img/brian-mcgowan-gkpszAElZf8-unsplash.jpg',
             }
         }
     },

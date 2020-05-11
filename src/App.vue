@@ -20,7 +20,7 @@ export default {
       header: {
           title: "SHURE - Competible with you",
           subtitle: "Detachable sound, isolating earphones",
-          img: '/assets/img/martin-sanchez-j2c7yf223Mk-unsplash.jpg',
+          img: '/assets/img/brian-mcgowan-gkpszAElZf8-unsplash.jpg',
           button: {
             url: '/shop',
             txt: 'SHOP NOW'

@@ -317,9 +317,9 @@
         labelactive: 'Active Cases',
         labelcasesperm: 'Cases / 1M',
         header: {
-          title: "CORONA (COVID-19) Stats WordPress Plugin",
-          subtitle: "Generate Shortcode to Display Widgets on Your Website",
-          img: '/assets/img/martin-sanchez-j2c7yf223Mk-unsplash.jpg',
+          title: "CORONA (COVID-19) Live Stats & Updates WordPress Plugin",
+          subtitle: "Generate Shortcode to Display Widgets on Your Website. Multiple Layouts (Cards, Charts, Table), Wordlwide / Country Stats (USA, Spain, China, Pakistan …)",
+          img: '/assets/img/tobias-rehbein-fUNCEHy4sZs-unsplash.jpg',
           button: {
             url: 'https://wordpress.org/plugins/corona-covid-19-stats/',
             txt: 'DOWNLOAD'
