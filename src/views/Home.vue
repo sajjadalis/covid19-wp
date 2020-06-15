@@ -74,6 +74,7 @@
                         <div class="cov-shortcode-container">
                             [covid-widget type="global-card"
                             <span v-if="bgcolor"> bgcolor="{{bgcolor}}"</span>
+                            <span v-if="cardwidth != '450px'"> width="{{cardwidth}}"</span>
                             <span v-if="!cases"> cases="{{cases}}"</span>
                             <span v-if="!deaths"> deaths="{{deaths}}"</span>
                             <span v-if="!recovered"> recovered="{{recovered}}"</span>
@@ -143,6 +144,7 @@
                         <div class="cov-shortcode-container">
                             [covid-widget type="country-card" country="{{selectedcountry}}"
                             <span v-if="bgcolor"> bgcolor="{{bgcolor}}"</span>
+                            <span v-if="cardwidth != '450px'"> width="{{cardwidth}}"</span>
                             <span v-if="!cases"> cases="{{cases}}"</span>
                             <span v-if="!deaths"> deaths="{{deaths}}"</span>
                             <span v-if="!recovered"> recovered="{{recovered}}"</span>
@@ -194,7 +196,9 @@
 
                         <br />
                         <div class="cov-shortcode-container">
-                            [covid-widget type="country-chart" country="{{selectedcountry}}" charttype="{{charttype}}"<span v-if="!cases"> cases="{{cases}}"</span>
+                            [covid-widget type="country-chart" country="{{selectedcountry}}" charttype="{{charttype}}"
+                            <span v-if="cardwidth != '450px'"> width="{{cardwidth}}"</span>
+                            <span v-if="!cases"> cases="{{cases}}"</span>
                             <span v-if="!deaths"> deaths="{{deaths}}"</span>
                             <span v-if="!recovered"> recovered="{{recovered}}"</span>
                             <span v-if="!critical"> critical="{{critical}}"</span>
@@ -246,7 +250,14 @@
                         </div>
                     </div>
                 </div>
-                <widget-global-wide :bgcolor="bgcolor" :textcolor="textcolor"></widget-global-wide>
+                <widget-global-wide 
+                    :bgcolor="bgcolor" 
+                    :textcolor="textcolor"
+                    :labelcases="labelcases"
+                    :labeldeaths="labeldeaths"
+                    :labelrecovered="labelrecovered"
+                    >
+                </widget-global-wide>
             </div>
         </div>
 
