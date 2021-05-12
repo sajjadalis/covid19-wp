@@ -8,7 +8,7 @@
   },
   "dependencies": {
     "axios": "^0.19.2",
-    "chart.js": "^2.9.3",
+    "chart.js": "^2.9.4",
     "moment": "^2.24.0",
     "papaparse": "^5.2.0",
     "tabulator-tables": "^4.6.1",
