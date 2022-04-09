@@ -9,7 +9,7 @@
   "dependencies": {
     "axios": "^0.19.2",
     "chart.js": "^2.9.3",
-    "moment": "^2.24.0",
+    "moment": "^2.29.2",
     "papaparse": "^5.2.0",
     "tabulator-tables": "^4.6.1",
     "verte": "0.0.12",
